@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 
 import './App.css';
-import Login from './login.js';
+import Login from './component/login/login.js';
 
 class App extends Component {
   render() {
