@@ -8,6 +8,8 @@ import {
 
 import './App.css';
 import Login from './component/login/login.js';
+import Main from './component/main/main';
+
 import axios from "axios";
 axios.defaults.baseURL = "http://47.96.21.88:8086/";
 
@@ -38,8 +40,8 @@ class App extends Component {
     return (
       <Router>
         <Switch>
-          <Route exact path="/" exact component={Login} />
-          <Route path="/home" component={Home} />
+          <Route path="/" exact component={Login} />
+          <Route path="/home" component={Main} />
           <Route path="/show" component={Show} />
           <Redirect to="/" />
         </Switch>
@@ -48,9 +50,6 @@ class App extends Component {
   }
 }
 
-const Home = () => {
-  return <div>Home</div>
-}
 const Show = () => {
   return <div>Show</div>
 }

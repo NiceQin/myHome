@@ -16,6 +16,7 @@ class Login extends React.Component {
 
   handleSubmit = () => {
     const { history } = this.props;
+    history.push("/home");
     axios
       .post("users/login", {
         uname: this.state.uname,
