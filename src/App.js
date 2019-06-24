@@ -7,11 +7,10 @@ import {
 } from "react-router-dom";
 
 import './App.css';
-import Login from './component/login/login.js';
-import Main from './component/main/main';
-
-import axios from "axios";
-axios.defaults.baseURL = "http://47.96.21.88:8086/";
+import Login from './login.js';
+import Main from './modules/main.js';
+import axios from 'axios';
+axios.defaults.baseURL = 'http://47.96.21.88:8086/';
 
 // Add a request interceptor
 // axios.interceptors.request.use(function (config) {
@@ -23,24 +22,21 @@ axios.defaults.baseURL = "http://47.96.21.88:8086/";
 //   });
 
 // 响应拦截器
-axios.interceptors.response.use(
-  function(response) {
+axios.interceptors.response.use(function (response) {
     // Do something with response data
     // console.log(response)
-    return response.data;
-  },
-  function(error) {
+    return response.data
+  }, function (error) {
     // Do something with response error
     return Promise.reject(error);
-  }
-);
+  });
 
 class App extends Component {
   render() {
     return (
       <Router>
         <Switch>
-          <Route path="/" exact component={Login} />
+          <Route exact path="/" component={Login} />
           <Route path="/home" component={Main} />
           <Route path="/show" component={Show} />
           <Redirect to="/" />
