@@ -7,6 +7,7 @@ import Home from './home/home.js';
 import Chat from './chat/chat.js';
 import Info from './info/info.js';
 import My from './my/my.js';
+import HouseList from './home/list.js';
 
 class Menu extends React.Component {
   render(){
@@ -44,6 +45,7 @@ class Main extends React.Component {
           <Route path="/home/info" component={Info} />
           <Route path="/home/chat" component={Chat} />
           <Route path="/home/my" component={My} />
+          <Route path="/home/list" component={HouseList} />
         </div>
         <div className='main-menu'>
           <Grid centered padded >

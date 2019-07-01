@@ -41,3 +41,6 @@
   padding-top: 0;
   padding-bottom: 0;
 }
+.main-menu .ui.grid>.row>.column {
+  margin-top: 0;
+}

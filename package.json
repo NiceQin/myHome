@@ -4,14 +4,16 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
-    "echarts-for-react": "^2.0.15-beta.0",
+    "echarts": "^4.1.0",
+    "echarts-for-react": "^2.0.14",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
-    "react-image-gallery": "^0.8.17",
+    "react-image-gallery": "^0.8.10",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
-    "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^0.87.2"
+    "react-touch-loader": "^1.1.2",
+    "semantic-ui-css": "^2.3.3",
+    "semantic-ui-react": "^0.82.2"
   },
   "scripts": {
     "start": "cross-env PORT=3000 react-scripts start",

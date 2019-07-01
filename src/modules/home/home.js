@@ -5,7 +5,9 @@ import 'semantic-ui-css/semantic.min.css';
 import "react-image-gallery/styles/css/image-gallery.css";
 import './home.css';
 import axios from 'axios';
-// import Calculator from './calculator.js';
+import Calculator from './calculator.js';
+import Map from './map.js';
+import {withRouter} from "react-router-dom";
 
 class Home extends React.Component {
   constructor(props) {
@@ -41,7 +43,8 @@ class Home extends React.Component {
         faqs: result[3],
         houses: result[4],
         loading: false,
-        isShowCalc: false
+        isShowCalc: false,
+        isShowMap: false
       });
     });
     // axios.post('homes/swipe').then(result=>{
@@ -81,6 +84,41 @@ class Home extends React.Component {
     // })
   }
 
+  handleMenu = (name) => {
+    switch(name){
+        case '二手房':
+          this.props.history.push('/home/list',{query:{menuName:name,homeType:1}});
+          break;
+        case '新房':
+          this.props.history.push('/home/list',{query:{menuName:name,homeType:2}});
+          break;
+        case '租房':
+          this.props.history.push('/home/list',{query:{menuName:name,homeType:3}});
+          break;
+        case '海外':
+          this.props.history.push('/home/list',{query:{menuName:name,homeType:4}});
+          break;
+        case '地图找房':
+          this.setState({
+            isShowMap: !this.state.isShowMap
+          });
+          break;
+        case '查公交':
+          
+          break;
+        case '计算器':
+          this.setState({
+            isShowCalc: !this.state.isShowCalc
+          });
+          break;
+        case '问答':
+          
+          break;
+        default:
+          console.log('没有匹配操作')
+    }
+  }
+
   toggleCalc = () => {
     // 隐藏计算器
     this.setState({
@@ -88,11 +126,18 @@ class Home extends React.Component {
     });
   }
 
+  toggleMap = () => {
+    // 隐藏地图
+    this.setState({
+      isShowMap: !this.state.isShowMap
+    });
+  }
+
   render() {
     const Menus = (props) => {
       const list = props.menuData.map(item=>{
         return (
-          <Grid.Column onClick={this.toggleCalc} key={item.id}>
+          <Grid.Column onClick={this.handleMenu.bind(this,item.menu_name)} key={item.id}>
             <div className='home-menu-item'>
               <Icon name='home' size='big' />
             </div>
@@ -216,7 +261,8 @@ class Home extends React.Component {
     }
     return (
       <div className='home-container'>
-        {/* {this.state.isShowCalc && <Calculator hideCalc={this.toggleCalc}/>} */}
+        {this.state.isShowCalc && <Calculator hideCalc={this.toggleCalc}/>}
+        {this.state.isShowMap && <Map hideMap={this.toggleMap}/>}
         <div className="home-topbar">
           <Input fluid icon={{ name: 'search', circular: true, link: true }} placeholder='搜房源...' />
         </div>
@@ -234,4 +280,4 @@ class Home extends React.Component {
     );
   }
 }
-export default Home;
+export default withRouter(Home);
