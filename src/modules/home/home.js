@@ -47,41 +47,7 @@ class Home extends React.Component {
         isShowMap: false
       });
     });
-    // axios.post('homes/swipe').then(result=>{
-    //   if(result.meta.status === 200) {
-    //     this.setState({
-    //       images: result.data.list
-    //     });
-    //   }
-    // })
-    // axios.post('homes/menu').then(result=>{
-    //   if(result.meta.status === 200) {
-    //     this.setState({
-    //       menus: result.data.list
-    //     });
-    //   }
-    // })
-    // axios.post('homes/info').then(result=>{
-    //   if(result.meta.status === 200) {
-    //     this.setState({
-    //       infos: result.data.list
-    //     });
-    //   }
-    // })
-    // axios.post('homes/faq').then(result=>{
-    //   if(result.meta.status === 200) {
-    //     this.setState({
-    //       faqs: result.data.list
-    //     });
-    //   }
-    // })
-    // axios.post('homes/house').then(result=>{
-    //   if(result.meta.status === 200) {
-    //     this.setState({
-    //       houses: result.data.list
-    //     });
-    //   }
-    // })
+    
   }
 
   handleMenu = (name) => {
