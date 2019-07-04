@@ -24,6 +24,7 @@ class Login extends React.Component {
       if(result.meta.status === 200) {
         // 存储token
         localStorage.setItem('mytoken', result.data.token);
+        localStorage.setItem('uid', result.data.uid);
         // 登录成功
         history.push('/home');
       }

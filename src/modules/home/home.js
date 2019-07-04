@@ -47,7 +47,41 @@ class Home extends React.Component {
         isShowMap: false
       });
     });
-    
+    // axios.post('homes/swipe').then(result=>{
+    //   if(result.meta.status === 200) {
+    //     this.setState({
+    //       images: result.data.list
+    //     });
+    //   }
+    // })
+    // axios.post('homes/menu').then(result=>{
+    //   if(result.meta.status === 200) {
+    //     this.setState({
+    //       menus: result.data.list
+    //     });
+    //   }
+    // })
+    // axios.post('homes/info').then(result=>{
+    //   if(result.meta.status === 200) {
+    //     this.setState({
+    //       infos: result.data.list
+    //     });
+    //   }
+    // })
+    // axios.post('homes/faq').then(result=>{
+    //   if(result.meta.status === 200) {
+    //     this.setState({
+    //       faqs: result.data.list
+    //     });
+    //   }
+    // })
+    // axios.post('homes/house').then(result=>{
+    //   if(result.meta.status === 200) {
+    //     this.setState({
+    //       houses: result.data.list
+    //     });
+    //   }
+    // })
   }
 
   handleMenu = (name) => {
@@ -129,14 +163,17 @@ class Home extends React.Component {
         );
       });
       return (
-        <div className='home-msg'>
+        <div className="home-msg">
           <Item.Group unstackable>
-            <Item className='home-msg-img' >
-              <Item.Image size='tiny' src={'http://127.0.0.1:8086/public/zixun.png'} />
-              <Item.Content verticalAlign='top'>
+            <Item className="home-msg-img">
+              <Item.Image
+                size="tiny"
+                src={"http://47.96.21.88:8086/public/1.png"}
+              />
+              <Item.Content verticalAlign="top">
                 {infos}
                 <div className="home-msg-more">
-                  <Icon name='angle right' size='big' />
+                  <Icon name="angle right" size="big" />
                 </div>
               </Item.Content>
             </Item>
@@ -181,15 +218,13 @@ class Home extends React.Component {
         })
         let houseItem = (
           <Item key={item.id}>
-            <Item.Image src={'http://127.0.0.1:8086/public/home.png'}/>
+            <Item.Image src={"http://47.96.21.88:8086/public/1.png"} />
             <Item.Content>
               <Item.Header>{item.home_name}</Item.Header>
               <Item.Meta>
-                <span className='cinema'>{item.home_desc}</span>
+                <span className="cinema">{item.home_desc}</span>
               </Item.Meta>
-              <Item.Description>
-                {tags}
-              </Item.Description>
+              <Item.Description>{tags}</Item.Description>
               <Item.Description>{item.home_price}</Item.Description>
             </Item.Content>
           </Item>

@@ -35,15 +35,13 @@ class HouseList extends React.Component {
     const listInfo = this.state.list.map(item=>{
       return (
         <Item key={item.id}>
-          <Item.Image src={'http://127.0.0.1:8086/public/home.png'}/>
+          <Item.Image src={"http://47.96.21.88:8086/public/1.png"} />
           <Item.Content>
             <Item.Header>{item.home_name}</Item.Header>
             <Item.Meta>
-              <span className='cinema'>{item.home_desc}</span>
+              <span className="cinema">{item.home_desc}</span>
             </Item.Meta>
-            <Item.Description>
-              {item.home_tags}
-            </Item.Description>
+            <Item.Description>{item.home_tags}</Item.Description>
             <Item.Description>{item.home_price}</Item.Description>
           </Item.Content>
         </Item>

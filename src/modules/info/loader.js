@@ -2,7 +2,55 @@ import React from 'react';
 import Tloader from 'react-touch-loader';
 import './tab.css';
 import axios from 'axios';
-import { Item,Icon,Button } from 'semantic-ui-react';
+import { Item,Icon,Button,Modal,TextArea } from 'semantic-ui-react';
+
+class QuestionModel extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      size: 'small',
+      commentStyle: {
+        width: '100%',
+        border: 0
+      },
+      value: ''
+    };
+  }
+
+  handleContent = (event) => {
+    this.setState({
+      value: event.target.value
+    });
+  }
+
+  handleSubmit = () => {
+    axios.post('infos/question',{
+      question: this.state.value
+    }).then(result=>{
+      if(result.meta.status === 200) {
+        // 关闭窗口
+        this.props.close();
+      }
+    })
+  }
+
+  render() {
+    return (
+      <div>
+        <Modal open={this.props.open} size={this.state.size}>
+          <Modal.Header>发表评论</Modal.Header>
+          <Modal.Content>
+            <TextArea value={this.state.value} onChange={this.handleContent} style={this.state.commentStyle} placeholder='Tell us more' />
+          </Modal.Content>
+          <Modal.Actions>
+            <Button onClick={this.props.close} negative>取消</Button>
+            <Button onClick={this.handleSubmit} positive icon='checkmark' labelPosition='right' content='发表' />
+          </Modal.Actions>
+        </Modal>
+      </div>
+    )
+  }
+}
 
 const RecoMessage = (props) => {
   let content = [];
@@ -58,8 +106,9 @@ const AskAnswer = (props) => {
   });
   return (
     <div>
+      <QuestionModel close={props.close} open={props.open}/>
       <div className='info-ask-btn'>
-        <Button fluid color='green'>快速提问</Button>
+        <Button onClick={props.close} fluid color='green'>快速提问</Button>
       </div>
       <ul className='info-ask-list'>{list}</ul>
     </div>
@@ -71,38 +120,91 @@ class Loader extends React.Component {
     super(props);
     this.state = {
       initializing: 0,
-      hasMore: false,
+      hasMore: true,
       listData: [],
-      total: 0
+      total: 0,
+      pagenum: 0, // 当前加载到了第几条
+      pagesize: 2,
+      loadSwitch : false,
+      open: false
     }
   }
 
   refresh = (resolve, reject) => {
-    console.log(1)
+    // 为什么要添加定时函数？
+    if(this.state.loadSwitch) {
+      // 阻止后续代码运行并终止任务
+      return reject();
+    }
+    setTimeout(()=>{
+      // 刷新数据，重置状态
+      this.setState({
+        pagenum: 0,
+        loadSwitch: true
+      });
+      this.loadData().then(result=>{
+        console.log('success')
+        this.setState({
+          loadSwitch: false
+        });
+        resolve();
+      })
+    }, 0);
   }
 
   loadMore = (resolve) => {
-    console.log(2)
+    // 加载更多，本质上包含分页逻辑（1、从第几条开始，查询多少条）
+    // 计算当前要加载的条数
+    setTimeout(()=>{
+      this.setState({
+        pagenum: this.state.pagenum + this.state.pagesize
+      });
+      this.loadData().then(result=>{
+        // 把新加载的数据填充到原有的集合中
+        // this.state.listData.push(...result);
+        // 推荐直接使用setState方式进行数据更新，不要使用push直接操作原始数据
+        let newArr = [...this.state.listData, ...result]
+        this.setState({
+          listData: newArr
+        });
+        // 处理是否还有更多的数据
+        this.setState({
+          hasMore: this.state.pagenum>0 && this.state.pagenum<this.state.total
+        });
+        resolve();
+      })
+    }, 0);
   }
 
   loadData = () => {
     const {type} = this.props;
     return axios.post('infos/list',{
-      pagenum: 0,
-      pagesize: 2,
+      pagenum: this.state.pagenum,
+      pagesize: this.state.pagesize,
       type: type
     }).then(result=>{
       if(result.meta.status === 200) {
         this.setState({
-          listData: result.data.list.data,
           total: result.data.list.total
         });
+        return result.data.list.data;
       }
     })
   }
 
   componentDidMount(){
-    this.loadData();
+    this.loadData().then(result=>{
+      this.setState({
+        listData: result,
+      });
+    })
+  }
+
+  handleClose = () => {
+    // 打开问题弹窗
+    this.setState({
+      open: !this.state.open
+    });
   }
 
   initList = () => {
@@ -113,7 +215,7 @@ class Loader extends React.Component {
       return <RecoMessage listData={this.state.listData}/>
     }else if(type === 3){
       // 加载问答列表
-      return <AskAnswer listData={this.state.listData}/>
+      return <AskAnswer open={this.state.open} close={this.handleClose} listData={this.state.listData}/>
     }
   }
 
