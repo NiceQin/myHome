@@ -76,9 +76,9 @@ const RecoMessage = (props) => {
 }
 const AskAnswer = (props) => {
   let list = [];
-  props.listData.forEach(item=>{
+  props.listData.forEach((item,i)=>{
     list.push(
-      <li key={item.question_id}>
+      <li key={i}>
         <div className='title'>
           <span className='cate'>
             <Icon color='green' name='users' size='small' />
@@ -108,7 +108,7 @@ const AskAnswer = (props) => {
     <div>
       <QuestionModel close={props.close} open={props.open}/>
       <div className='info-ask-btn'>
-        <Button onClick={props.close} fluid color='green'>快速提问</Button>
+        <Button fluid color='green'>快速提问</Button>
       </div>
       <ul className='info-ask-list'>{list}</ul>
     </div>

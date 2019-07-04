@@ -99,9 +99,9 @@ class Home extends React.Component {
           this.props.history.push('/home/list',{query:{menuName:name,homeType:4}});
           break;
         case '地图找房':
-          this.setState({
-            isShowMap: !this.state.isShowMap
-          });
+          // this.setState({
+          //   isShowMap: !this.state.isShowMap
+          // });
           break;
         case '查公交':
           
