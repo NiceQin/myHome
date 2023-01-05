@@ -11,7 +11,7 @@
     "react-dom": "^16.4.2",
     "react-image-gallery": "^0.8.10",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "1.1.4",
+    "react-scripts": "5.0.1",
     "react-touch-loader": "^1.1.2",
     "semantic-ui-css": "^2.3.3",
     "semantic-ui-react": "^0.82.2"
